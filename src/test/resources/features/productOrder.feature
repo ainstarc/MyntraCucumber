@@ -4,9 +4,9 @@ Feature: Myntra Item Order
     Given User is in Myntra Site
     When User searches "<item>"
     Then User gets searched items result
-    When User selects an "<brand>"
-    Then Item details opens in new tab
-    When User switches to new tab
+    When User selects a "<brand>"
+    Then User gets results of item
+    When User clicks on item and switch to item tab
     And select "<size>"
     And add to bag
     And move to bag
@@ -17,5 +17,7 @@ Feature: Myntra Item Order
     
     Examples:
     | item | brand | size |
-    | shirts men | peter england | S |
+    | shirts men | arrow | L42 |
+    | shirts men | peter england | M40 |
+    | shirts men | arrow | S39 |
 

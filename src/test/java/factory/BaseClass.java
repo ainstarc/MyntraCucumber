@@ -12,7 +12,7 @@ public class BaseClass {
 	public static WebDriver initializeBrowser() {
 		driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		return driver;
 	}
 
