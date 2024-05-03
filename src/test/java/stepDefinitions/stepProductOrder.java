@@ -1,13 +1,14 @@
 package stepDefinitions;
 
+import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 
 import factory.BaseClass;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import pageObjects.MyntraPage;
 
 public class stepProductOrder {
@@ -18,7 +19,7 @@ public class stepProductOrder {
 	@Given("User is in Myntra Site")
 	public void openSite() {
 		this.myntra = new MyntraPage(BaseClass.getDriver());
-		this.myntra.openMyntra();
+//		this.myntra.openMyntra();
 	}
 
 	@When("User searches {string}")
@@ -27,6 +28,17 @@ public class stepProductOrder {
 		this.myntra.itemSearch(item);
 	}
 
+	@When("User hovers on {string}")
+	public void hoverOnNav(String nav) {
+		this.myntra.chooseHeader(nav);
+	}
+	
+	@And("User clicks on {string}")
+	public void hoverAndClickOnCategory(String cat) {
+		this.myntra.chooseCategory(cat);
+	}
+	
+	
 	@Then("User gets searched items result")
 	public void searchResults() {
 	}
@@ -47,7 +59,7 @@ public class stepProductOrder {
 		this.myntra.clickAnItem();
 	}
 
-	@When("select {string}")
+	@And("select {string}")
 	public void chooseSize(String size) {
 		try {
 			this.myntra.selectSize(size);
@@ -58,13 +70,13 @@ public class stepProductOrder {
 		}
 	}
 
-	@When("add to bag")
+	@And("add to bag")
 	public void addToBag() {
 		this.myntra.addProductToBag();
 
 	}
 
-	@When("move to bag")
+	@And("move to bag")
 	public void openBag() {
 		this.myntra.checkBag();
 	}

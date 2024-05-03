@@ -3,6 +3,7 @@ package pageObjects;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +31,47 @@ public class MyntraPage extends BasePage {
 		for (WebElement suggestion : searchSuggestions) {
 			if (suggestion.getText().equalsIgnoreCase(item)) {
 				suggestion.click();
+				break;
+			}
+		}
+	}
+
+	@FindBy(xpath = "//div[@class='desktop-navLink']/a")
+	List<WebElement> navBars;
+
+	int navBarIndex;
+
+//	@FindBy(xpath = "(//div[@class='desktop-navLink'])[1]//a[@class='desktop-categoryLink']")
+	List<WebElement> categoryLinks;
+
+	public void chooseHeader(String header) {
+		int index = 0;
+		for (WebElement nav : navBars) {
+			index++;
+//			System.out.println(nav.getText() + " " + index);
+			if (nav.getText().equalsIgnoreCase(header)) {
+				highlightElement(nav);
+				navBarIndex = index;
+				sleep(1000);
+				actions.moveToElement(nav).build().perform();
+				break;
+			}
+		}
+	}
+
+	public void chooseCategory(String category) {
+		categoryLinks = driver.findElements(
+				By.xpath("(//div[@class='desktop-navLink'])[" + navBarIndex + "]//a[@class='desktop-categoryLink']"));
+		sleep(5000);
+		for (WebElement cat : categoryLinks) {
+//			System.out.println(cat.getText());
+			if (cat.getText().equalsIgnoreCase(category)) {
+				highlightElement(cat);
+				sleep(1000);
+				actions.moveToElement(cat).build().perform();
+//				cat.click();
+				jseClick(cat);
+				sleep(1000);
 				break;
 			}
 		}

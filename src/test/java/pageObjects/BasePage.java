@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -16,10 +17,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BasePage {
 
 	protected WebDriver driver;
-	static Actions actions;
+	protected static Actions actions;
 	static Properties p;
-	static WebDriverWait wait;
-	
+	protected static WebDriverWait wait;
+	static JavascriptExecutor jse;
 
 	public BasePage(WebDriver driver) {
 		this.driver = driver;
@@ -27,6 +28,8 @@ public class BasePage {
 		actions = new Actions(driver);
 		p = getProperties();
 		wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		actions = new Actions(driver);
+		jse = (JavascriptExecutor) driver;
 	}
 
 	public static void sleep(long time) {
@@ -55,8 +58,17 @@ public class BasePage {
 		}
 		return p;
 	}
-	
+
 	public static Boolean ExplicitlyWaitForElement(WebElement element) {
-		return wait.until(ExpectedConditions.and(ExpectedConditions.visibilityOf(element), ExpectedConditions.elementToBeClickable(element)));
+		return wait.until(ExpectedConditions.and(ExpectedConditions.visibilityOf(element),
+				ExpectedConditions.elementToBeClickable(element)));
+	}
+
+	public static void highlightElement(WebElement element) {
+		jse.executeScript("arguments[0].style.backgroundColor=arguments[1]", element, "yellow");
+	}
+
+	public static void jseClick(WebElement element) {
+		jse.executeScript("arguments[0].click();", element);
 	}
 }

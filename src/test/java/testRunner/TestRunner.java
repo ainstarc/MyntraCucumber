@@ -6,7 +6,12 @@ import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", glue = "stepDefinitions", dryRun = false)
+@CucumberOptions(
+		features = "src/test/resources/features", 
+		glue = "stepDefinitions", 
+		dryRun = false, 
+		tags = "@mouseHover or @searchBar"
+//		tags = "@searchBar"
+)
 public class TestRunner {
-
 }

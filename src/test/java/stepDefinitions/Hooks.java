@@ -19,6 +19,7 @@ public class Hooks {
 	public void setup() throws IOException {
 		driver = BaseClass.initializeBrowser();
 		driver.manage().window().maximize();
+		driver.get("https://www.myntra.com/");
 
 	}
 
